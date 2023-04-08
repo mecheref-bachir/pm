@@ -1,0 +1,85 @@
+﻿@model project.Models.ShoppingCartModels.Dto.ProductModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    form {
+        border: 3px solid #f1f1f1;
+        width: 60%;
+        margin: auto;
+        margin-top: 20px;
+    }
+
+    input[type=text], input[type=number] , select{
+        width: 55%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+
+    button ,select,input{
+        width: 55% !important;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    .msg {
+        padding: 0px;
+    }
+
+    .err {
+        color: red;
+    }
+</style>
+
+
+
+
+<div class="container body-content">
+    <form asp-action="AddProduct" method="post">
+
+        <div class="container">
+
+            <label asp-for="Name"><b>Product Name</b></label>
+            <input type="text" asp-for="Name" placeholder="Enter Product Nmae">
+            <div class="msg">
+                <span class="err" asp-validation-for="Name"></span>
+            </div>
+
+          
+            <label asp-for="Price"><b>Enter the price</b></label>
+            <input  type="number" asp-for="Price" placeholder="Enter the price">
+            <div class="msg">
+                <span asp-validation-for="Price" class="err"></span>
+            </div>
+          
+
+            <label asp-for="ProductCategory"><b>Category</b> </label>
+            <select asp-for="ProductCategory">
+                <option value="all" selected>All </option>
+                <option value="Mobile phones">Mobile phones</option>
+                <option value="Game consoles">Game consoles</option>
+                <option value="Household furniture">Household furniture</option>
+                <option value="Home appliances">Home appliances</option>
+                <option value="Clothing">Clothing</option>
+            </select>
+
+            @if (TempData["msg"] != null)
+            {
+                <div class="msg">@TempData["msg"]</div>
+            }
+
+
+            <button class="btn btn-primary btn-lg btn-block mt" type="submit">Submit</button>
+            
+        </div>
+    </form>
+
+</div>

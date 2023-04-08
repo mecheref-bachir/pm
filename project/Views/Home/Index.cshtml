@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+
+    
+
+    .products {
+        transition: transform 0.3s ease 0s !important;
+    }
+
+
+
+        .products:hover {
+            transform: translateY(-10px) !important;
+        }
+
+    
+
+</style>
+<div>
+
+
+    <div style="height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;width:94%;margin-left:25px;margin-bottom:5px">
+        <form class="form-inline">
+            <label>Filter by </label>
+            <select class="form-control">
+                <option value="all" selected>All products</option>
+                <option value="Mobile phones" selected>Mobile phones</option>
+                <option value="Game consoles">Game consoles</option>
+                <option value="Household furniture">Household furniture</option>
+                <option value="Home appliances">Home appliances</option>
+                <option value="Clothing">Clothing</option>
+            </select>
+        </form>
+        <form class="form-inline">
+            <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+
+    </div>
+
+
+
+
+    <div style="width:100%;height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
+
+        @for (int i = 0; i < 10; i++)
+        {
+            <div  class="products" style="width:200px;height:300px;background-color:blueviolet;box-sizing:border-box;background:linear-gradient(#A0A0A0,#909090);border-radius:20px;margin:10px">
+              
+
+                    <div class="card" style="width: 18rem;">
+                    
+                        <img src="..." class="card-img-top" alt="...">
+                    
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5>9.5§</h5>
+                            <a href="#" class="btn btn-primary">Add</a>
+                        </div>
+                    </div>
+
+
+              
+            </div>
+        }
+
+
+    </div>
+</div>

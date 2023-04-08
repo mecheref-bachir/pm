@@ -1,0 +1,115 @@
+﻿@model project.Models.RegistrationModels.Dto.LoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth demo</title>
+    <style>
+        form {
+            border: 3px solid #f1f1f1;
+            width: 60%;
+            margin: auto;
+            margin-top: 10%;
+        }
+
+        input[type=text], input[type=password] {
+            width: 55%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 55% !important;
+        }
+
+
+        .container {
+            padding: 16px;
+        }
+
+        .msg {
+            padding: 0px;
+        }
+
+        .err {
+            color: red;
+        }
+    </style>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">web site name</a>
+            </div>
+            <div style="float: right;">
+                <ul class="nav navbar-nav">
+
+
+                    <li><a href="/Home/Index">Home</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+
+
+
+    <div class="container body-content">
+        <form asp-action="Login" method="post">
+
+            <div class="container">
+                <label asp-for="UserName"><b>Username</b></label>
+                <input type="text" asp-for="UserName" placeholder="Enter Username">
+                <div class="msg">
+                    <span class="err" asp-validation-for="UserName"></span>
+                </div>
+
+
+
+                <label asp-for="Password"><b>Password</b></label>
+                <input type="password" asp-for="Password" placeholder="Enter Password">
+                <div class="msg">
+                    <span asp-validation-for="Password" class="err"></span>
+                </div>
+
+
+                @if (TempData["msg"] != null)
+                {
+                    <div class="msg">@TempData["msg"]</div>
+                }
+
+              
+                <button class="btn btn-primary btn-lg btn-block mt" type="submit">Login</button>
+                <a class="text-alert" href="/Login/Registration">Not a user? Signup</a>
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>
+
+
