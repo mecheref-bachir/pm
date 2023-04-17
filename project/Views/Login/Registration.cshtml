@@ -1,6 +1,4 @@
-﻿
-
-@model project.Models.RegistrationModels.Dto.Registration
+﻿@model project.Models.RegistrationModels.Dto.Registration
 @{
     Layout = null;
 }
@@ -16,7 +14,6 @@
             border: 3px solid #f1f1f1;
             width: 60%;
             margin: auto;
-          
         }
 
         input[type=text], input[type=password] {
@@ -27,7 +24,8 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
-        select{
+
+        select {
             width: 55% !important
         }
 
@@ -48,16 +46,28 @@
             color: red;
         }
     </style>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<script>
+    function extendToPayment() {
+        if (document.getElementById('role').value == 'vendor') {
+            document.getElementById('payment').style.display = '';
+        } else {
+            document.getElementById('payment').style.display = 'none';
+        }
+    }
+    function myFunction() {
+        if (document.getElementById('role').value == 'vendor') {
+            document.getElementById('payment').style.display = '';
+        } else {
+            document.getElementById('payment').style.display = 'none';
+        }
+      
+    }
+</script>
+
+
+<body onload="myFunction()">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -75,77 +85,148 @@
         </div>
 
     </nav>
-
-
     <div class="container">
-      
-            
-                <form asp-action="Registration" method="post">
-                    <div class="container">
-                    <h3>Registration</h3>
-                  
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" asp-for="Name"/>
-                        <span class="text-danger" asp-validation-for="Name"></span>
 
-                    </div>
 
-                    <div class="form-group">
-                        <label>UserName</label>
-                        <input type="text" class="form-control" asp-for="UserName" />
-                        <span class="text-danger" asp-validation-for="UserName"></span>
+        <form asp-action="Registration" method="post">
 
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" class="form-control" asp-for="Email" />
-                        <span class="text-danger" asp-validation-for="Email"></span>
+            <div class="container">
+                <h3>Registration</h3>
 
-                    </div>
-                  
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" asp-for="Password" />
-                        <span class="text-danger" asp-validation-for="Password"></span>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" asp-for="Name" />
+                    <span class="text-danger" asp-validation-for="Name"></span>
 
-                    </div>
+                </div>
 
-                    <div class="form-group">
-                        <label>Password Confirm</label>
-                        <input type="password" class="form-control" asp-for="PasswordConfirm" />
-                        <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
+                <div class="form-group">
+                    <label>UserName</label>
+                    <input type="text" class="form-control" asp-for="UserName" />
+                    <span class="text-danger" asp-validation-for="UserName"></span>
 
-                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" asp-for="Email" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
 
-                    <div class="form-group">
-                        <label>Role</label>
-                        <select class="form-control" name="role" asp-for="Role">
-                            <option value="vendor" selected>Vendor</option>
-                            <option value="user">User</option>
-                        </select>
+                </div>
 
-                    </div>
-                   
-                    @if(TempData["msg"] != null)
-                    {
-                        <div class="form-group">
-                            @TempData["msg"]
-                        </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" asp-for="Password" />
+                    <span class="text-danger" asp-validation-for="Password"></span>
 
-                       
-                    }
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
-                    <a class="btn btn-info" href="/Login/Login">Login</a>
+                </div>
+
+                <div class="form-group">
+                    <label>Password Confirm</label>
+                    <input type="password" class="form-control" asp-for="PasswordConfirm" />
+                    <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Role</label>
+                    <select class="form-control" name="Role" asp-for="Role" id="role" onchange="extendToPayment()">
+                        <option value="user" selected>User</option>
+                        <option value="vendor">Vendor</option>
+
+                    </select>
+
+                </div>
+
             </div>
-                </form>
+
+            <!-- payment section-->
+            <div id="payment" class="container">
+               
+
+                <div >
+                    <label>Payment Type</label>
+                    <select class="form-control" name="PaymentMethod" asp-for="PaymentMethod">
+                        <option value="visa" selected>visa</option>
+                        <option value="master">master</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Card Number</label>
+                    <input type="text" class="form-control" asp-for="CardNumber" />
+                    <span class="text-danger"></span>
+
+                </div>
+
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" class="form-control" asp-for="CVV" />
+                    <span class="text-danger"></span>
+
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Expiration">Expiration Date:</label>
+                    <input type="date" class="form-control" style="width:625px" asp-for="ExpirationDate">
+                    <span class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Ammount</label>
+                    <input type="text" class="form-control" value="$2000.00" readonly />
+                    <span class="text-danger"></span>
+                </div>
+
+                <label>Agreement</label>
+                <div class="form-group">
+                   
+                    <input type="checkbox" asp-for="Agreement" name="Agreement" value="true">  By signing up as a vendor , you agree for:<br />
+                    1-  a Payment of initial amount of 2000$ <br />
+                    2-  20% of profits on sales</input>
+
+                </div>
+
+            </div>
          
-        
-      
+         
+            <div>
+                <button type="submit"  class="btn btn-primary" style="margin-left:120px">Sign Up</button>
+                <a class="btn btn-info" href="/Login/Login">Login</a>
+            </div>
+
+            @if (TempData["msg"] != null)
+            {
+                <div class="form-group">
+                    @TempData["msg"]
+                </div>
+
+
+            }
+
+
+        </form>
+
+
+
     </div>
 
+    <footer class="border-top footer text-muted" style="position: fixed; bottom: 0">
+        <div class="container">
+            &copy; 2023 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
 
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

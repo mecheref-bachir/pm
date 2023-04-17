@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace project.Models.ShoppingCartModels.Domain
+namespace project.Models.ProductModels.Domain
 {
-    public class Product
+    public class Product 
     {
         [Key]
         public int PrdoductId { get; set; }
@@ -14,6 +14,9 @@ namespace project.Models.ShoppingCartModels.Domain
         public string ProductCategory { get; set; }
         [Required]
         public string vendor { get; set; }
-       
+        [Required]
+        public string ImageUrl { get; set; }
+
+        public bool isAproved { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace project.Models.ShoppingCartModels.Dto;
+﻿namespace project.Models.ProductModels.Dto;
 
 public class Status
 {

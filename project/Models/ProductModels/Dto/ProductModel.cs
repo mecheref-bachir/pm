@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace project.Models.ShoppingCartModels.Dto
+namespace project.Models.ProductModels.Dto
 {
     public class ProductModel
     {
+        public int PrdoductId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -12,5 +13,10 @@ namespace project.Models.ShoppingCartModels.Dto
         public string ProductCategory { get; set; }
 
         public string Vendor { get; set; }
+        [Required]
+        public IFormFile Image { get; set; }
+        [Required]
+        public string ImageUrl { get; set; }
+
     }
 }

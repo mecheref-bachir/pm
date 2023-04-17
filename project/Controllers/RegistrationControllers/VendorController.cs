@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using project.Models.ProductModels.Dto;
 using project.Models.RegistrationModels.Domain;
-using project.Models.ShoppingCartModels.Dto;
 using project.Repositories.Abstruct;
 
 namespace project.Controllers.RegistrationControllers
@@ -13,6 +12,7 @@ namespace project.Controllers.RegistrationControllers
     {
         private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager;
         private readonly ProductService ProductService;
+    
 
 
         public VendorController(ProductService ProductService, Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager)
@@ -23,13 +23,24 @@ namespace project.Controllers.RegistrationControllers
         {
             return View();
         }
-
+        [HttpPost]
         public async Task<IActionResult> AddProduct(ProductModel model)
         {
+            IFormFile file = model.Image;
+          
             var userId = userManager.GetUserId(HttpContext.User);
-            var result =  await ProductService.SaveProduct(model,userId);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/productImages");
+            if (file.Length > 0)
+            {
+                using (var fileStream = new FileStream(Path.Combine(path, file.FileName), FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+            }
+            string ImageName= Path.GetFileName(model.Image.FileName);
+            var result =  await ProductService.SaveProduct(model,userId,ImageName);
             TempData["msg"] = result.Message;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyStore");
            
         }
     }

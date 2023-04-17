@@ -31,6 +31,25 @@ namespace project.Controllers.RegistrationControllers
             {
                 return View(model);
             }
+            if(model.Role == "vendor")
+            {
+                if(model.CardNumber == null || model.ExpirationDate == null || model.CVV == null) {
+
+
+                    TempData["msg"] = "Please provide all payment info";
+                    return View(model);
+
+                }
+                if (! model.Agreement.Equals("true"))
+                {
+                    TempData["msg"] = "Please verify and accept agreement";
+                    return View(model);
+
+                }
+            }
+
+
+
             var result = await userAuthenticationService.RegistrationAsync(model);
             TempData["msg"] = result.Message;
             return RedirectToAction(nameof(Registration));

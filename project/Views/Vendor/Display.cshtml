@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    .btn-group button {
+        background-color: #04AA6D; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        width: 100%; /* Set a width if needed */
+        display: inline-block; /* Make the buttons appear below each other */
+    }
+
+        .btn-group button:not(:last-child) {
+            border-bottom: none; /* Prevent double borders */
+        }
+
+        /* Add a background color on hover */
+        .btn-group button:hover {
+            background-color: mediumblue;
+        }
+</style>
+
+<div style="width:100%;height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:left">
+
+    <div class="products" style="width:20%;height:500px;box-sizing:border-box;background:linear-gradient(#A0A0A0,#909090);margin:2px">
+        <div class="btn-group">
+            <button asp->Manage Users</button>
+            <button>Manage Products</button>
+            <button>Statistics</button>
+        </div>
+    </div>
+    <div class="products" style="width:79%;height:500px;background-color:blueviolet;box-sizing:border-box;background:linear-gradient(#A0A0A0,#909090);margin:2px">
+        Manage Users
+    </div>
+ 
+
+</div>

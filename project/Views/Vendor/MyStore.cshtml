@@ -1,9 +1,10 @@
-﻿@model project.Models.ShoppingCartModels.Dto.ProductModel
+﻿@model  project.Models.ProductModels.Dto.ProductModel;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
+
 <style>
     form {
         border: 3px solid #f1f1f1;
@@ -43,10 +44,9 @@
 
 
 <div class="container body-content">
-    <form asp-action="AddProduct" method="post">
+    <form asp-action="AddProduct" method="post" enctype="multipart/form-data">
 
-        <div class="container">
-
+        <div class="container"> 
             <label asp-for="Name"><b>Product Name</b></label>
             <input type="text" asp-for="Name" placeholder="Enter Product Nmae">
             <div class="msg">
@@ -59,7 +59,11 @@
             <div class="msg">
                 <span asp-validation-for="Price" class="err"></span>
             </div>
+
           
+            <label asp-for="Image"><b>Upload Image</b></label>
+            <input class="form-control" name="image" id="image" type="file" asp-for="Image" size="70"/>
+               
 
             <label asp-for="ProductCategory"><b>Category</b> </label>
             <select asp-for="ProductCategory">
@@ -73,13 +77,17 @@
 
             @if (TempData["msg"] != null)
             {
-                <div class="msg">@TempData["msg"]</div>
+                <div class="form-group">
+                    @TempData["msg"]
+                </div>
             }
 
 
-            <button class="btn btn-primary btn-lg btn-block mt" type="submit">Submit</button>
+            <button class="btn btn-primary btn-lg btn-block mt" type="submit" value="Upload">Submit</button>
             
         </div>
     </form>
 
 </div>
+
+}

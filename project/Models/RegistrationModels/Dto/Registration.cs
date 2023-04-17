@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using project.Models.PaymentModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace project.Models.RegistrationModels.Dto
 {
@@ -17,6 +18,15 @@ namespace project.Models.RegistrationModels.Dto
         [Compare("Password")]
         public string PasswordConfirm { get; set; }
         [Required]
-        public string? Role { get; set; }
+        public string Role { get; set; }
+
+        public string? PaymentMethod { get; set; }
+        public long? CardNumber { get; set; }
+
+        public int? CVV { get; set; }
+
+        public DateTime? ExpirationDate { get; set; }
+
+        public string?  Agreement { get; set; }
     }
 }

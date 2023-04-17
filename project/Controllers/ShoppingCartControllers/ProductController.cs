@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using project.Models.ShoppingCartModels.Dto;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using project.Models.ProductModels.Dto;
 
 namespace project.Controllers.ShoppingCartControllers
 {

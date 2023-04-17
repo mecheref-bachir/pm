@@ -1,0 +1,177 @@
+﻿@model project.Models.ReportModels.ManageUsersPageModel
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth demo</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+
+</head>
+<style>
+    .btn-group a {
+        background-color: #04AA6D; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        width: 100%; /* Set a width if needed */
+        display: inline-block; /* Make the buttons appear below each other */
+    }
+
+        .btn-group a:not(:last-child) {
+            border-bottom: none; /* Prevent double borders */
+        }
+
+        /* Add a background color on hover */
+        .btn-group a:hover {
+            background-color: mediumblue;
+        }
+</style>
+<body>
+
+
+
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div>
+                    <div>
+                        <a class="navbar-brand" href="#"><h4>ShoppingCart System</h4></a>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div style="float: right;">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Home/Index">Home</a></li>
+                    @if (User.IsInRole("vendor") || User.IsInRole("admin") || User.IsInRole("user"))
+                    {
+                        <li><a href="/Login/Logout">Logout</a></li>
+                    }
+
+                    @if (!User.IsInRole("vendor") && !User.IsInRole("admin") && !User.IsInRole("user"))
+                    {
+                        <li><a href="/Login/Login">Login</a></li>
+                        <li><a href="/Login/Registration">Sign up</a></li>
+                    }
+
+
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li><a href="/Admin/ManageUsers">Admin Dashboard</a></li>
+                    }
+
+                    @if (User.IsInRole("vendor"))
+                    {
+
+                        <li><a href="/Vendor/MyStore">My Store</a></li>
+                    }
+
+
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+
+    <div style="width:100%;height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:left">
+
+        <div class="products" style="width:20%;height:500px;box-sizing:border-box;background:linear-gradient(#A0A0A0,#909090);margin:2px">
+            <div class="btn-group">
+                <a href="/Admin/ManageUsers" class="Button">Manage Users</a>
+                <a href="/Admin/ManageProducts" class="Button">Manage Products</a>
+                <a href="/Admin/Statistics" class="Button">Statistics</a>
+            </div>
+        </div>
+
+        @if(Model.NonApprovedUsersList.Count == 0)
+        {
+            <h3>No Users Waiting for Approve</h3>
+        }
+        else
+        {
+            <div style="border-style:solid;width: 75%">
+                <div style="text-align:center;">
+                    <h3>List of Users waiting for approve</h3>
+                    <a asp-page="/Admin/ManageUsers" asp-route-PageNumber="@Model.Page.PageNumber" asp-route-operation="previouse" class="btn btn-outline-secondary">&lt;</a>
+                    <a asp-page="/Admin/ManageUsers" asp-route-PageNumber="@Model.Page.PageNumber" asp-route-operation="next" class="btn btn-outline-secondary">&gt;</a>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.NonApprovedUsersList)
+                        {
+                            <tr>
+                                <td>@user.Name</td>
+                                <td>@user.UserName</td>
+                                <td>@user.Role</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <a class="btn btn-primary" style="margin-right:5px" asp-controller="Admin" asp-action="ApprouveUser" asp-route-UserName="@user.UserName">Approve</a>
+                                    <a class="btn btn-primary" asp-controller="Admin" asp-action="DeleteUser" asp-route-UserName="@user.UserName">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+
+            </div>
+            
+        }
+        
+
+
+    </div>
+
+
+
+
+    <footer class="border-top footer text-muted" style="position: fixed; bottom: 0">
+        <div class="container">
+            &copy; 2023 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+</body>
+
+
+
+</html>
+

@@ -1,74 +1,158 @@
-﻿@{
+﻿@model     project.Models.ProductModels.Dto.MainPageModel;
+
+
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <style>
-
     
-
     .products {
+        text-align: center;
         transition: transform 0.3s ease 0s !important;
     }
 
+    .products:hover {
+    transform: translateY(-10px) !important;
+    }
+
+   .products a {
+            border: 2px;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+   }
+
+   .products a:hover {
+      opacity: 0.7;
+    }
+
+  
 
 
-        .products:hover {
-            transform: translateY(-10px) !important;
-        }
 
-    
+    .parent {
+        /*  border: 1px solid black;*/
+        margin: 5px;
+        padding: 5px 5px;
+        text-align: center;
+    }
 
+    .child1 {
+        width: 29%;
+        display: inline-block;
+        /* border: 1px solid red;*/
+        padding: 5px 5px;
+        vertical-align: middle;
+        height: 545px;
+    }
+
+    .child2 {
+        width: 70%;
+        height: 545px;
+        display: inline-block;
+        /*  border: 1px solid red; */
+        padding: 5px 5px;
+        vertical-align: middle;
+    }
+
+    .myDiv {
+        height: auto;
+        width: auto;
+        padding-top: 10px;
+    }
+    .myDiv img {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+    }
+
+    .myDiv2{
+        width: 60%;
+        height: 300px;
+    }
+
+    .myDiv2 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 </style>
-<div>
+
+<div class="parent">
+
+    <!-- Shopping cart -->
+    <div class="child1">
+        <div class="products" style="width:100%;box-sizing:border-box;">
 
 
-    <div style="height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;width:94%;margin-left:25px;margin-bottom:5px">
-        <form class="form-inline">
-            <label>Filter by </label>
-            <select class="form-control">
-                <option value="all" selected>All products</option>
-                <option value="Mobile phones" selected>Mobile phones</option>
-                <option value="Game consoles">Game consoles</option>
-                <option value="Household furniture">Household furniture</option>
-                <option value="Home appliances">Home appliances</option>
-                <option value="Clothing">Clothing</option>
-            </select>
-        </form>
-        <form class="form-inline">
-            <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+            <div class="card" style="justify-content:center;">
+                <div class="myDiv" style="height:170px;">
+                    <img src="~/images/shop.png" class="card-img-top" alt="">
+                </div>
+                <div style="height: 280px;">
+                    stat
+                </div>
 
+
+                <div class="card-body" style="width:100%">
+                    <h5>Total:9.5§</h5>
+                    <a href="#" class="btn btn-primary ">Checkout</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 
 
+    <div class="child2">
+        <!-- functionalities bar -->
+        <div style="height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;width:94%;margin-left:25px;margin-bottom:5px;padding:5px;border-radius:3px">
+            <form class="form-inline">
+                <label>Filter by </label>
+                <select class="form-control">
+                    <option value="all" selected>All products</option>
+                    <option value="Mobile phones">Mobile phones</option>
+                    <option value="Game consoles">Game consoles</option>
+                    <option value="Household furniture">Household furniture</option>
+                    <option value="Home appliances">Home appliances</option>
+                    <option value="Clothing">Clothing</option>
+                </select>
+            </form>
+            <a asp-page="/Home/Index" asp-route-PageNumber="@Model.page.PageNumber" asp-route-operation="previouse" class="btn btn-outline-secondary">&lt;</a>
+            <a asp-page="/Home/Index" asp-route-PageNumber="@Model.page.PageNumber" asp-route-operation="next" class="btn btn-outline-secondary">&gt;</a>
+            <form class="form-inline">
+                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
 
 
-    <div style="width:100%;height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
+        </div>
+        <!-- products rendring -->
+        <div style="width:100%;height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
 
-        @for (int i = 0; i < 10; i++)
-        {
-            <div  class="products" style="width:200px;height:300px;background-color:blueviolet;box-sizing:border-box;background:linear-gradient(#A0A0A0,#909090);border-radius:20px;margin:10px">
-              
+            @foreach (var product in Model.ProductList)
+            {
+                <div class="products" style="width:200px;height:220px;box-sizing:border-box;background:linear-gradient(#A0A0A0,#909090);margin:10px">
 
-                    <div class="card" style="width: 18rem;">
-                    
-                        <img src="..." class="card-img-top" alt="...">
-                    
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <h5>9.5§</h5>
+
+                    <div>
+                        <div class="myDiv2" style="width:200px;height:125px">
+                            <img src="@Url.Content(product.ImageUrl)" class="" alt="...">
+                        </div>
+
+                        <div class="justify-content-center">
+                            <h5 asp>price : @product.Price </h5>
+                            <h5 asp>product Name : @product.Name</h5>
                             <a href="#" class="btn btn-primary">Add</a>
                         </div>
                     </div>
-
-
-              
-            </div>
-        }
-
-
+                </div>
+            }
+        </div>
     </div>
 </div>
